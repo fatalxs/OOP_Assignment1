@@ -12,142 +12,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import java.io.File;
 import java.util.ArrayList;
 
-class Pokemon{
-	private String name;
-	private String[] type;
-	private int level;
-	private Texture sprite;
-
-	private float xpos;
-	private float ypos;
-	private float speed;
-	private float base = 5f;
-
-	public Pokemon(){}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String[] getType() {
-		return type;
-	}
-
-	public void setType(String[] type) {
-		this.type = type;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public Texture getSprite() {
-		return sprite;
-	}
-
-	public void setSprite(Texture sprite) {
-		this.sprite = sprite;
-	}
-
-	public float getXpos() {
-		return xpos;
-	}
-
-	public void setXpos(float xpos) {
-		this.xpos = xpos;
-	}
-
-	public float getYpos() {
-		return ypos;
-	}
-
-	public void setYpos(float ypos) {
-		this.ypos = ypos;
-	}
-
-	public float getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
-
-	public void control(int[] controls){
-		if (Gdx.input.isKeyPressed(controls[0])){ // move left
-			this.setXpos(this.xpos + -this.base * this.speed);
-		}
-		if (Gdx.input.isKeyPressed(controls[1])){ // move right
-			this.setXpos(this.xpos + this.base * this.speed);
-		}
-		if (Gdx.input.isKeyPressed(controls[2])){ // move up
-			this.setYpos(this.ypos + this.base * this.speed);
-		}
-		if (Gdx.input.isKeyPressed(controls[3])){ // move down
-			this.setYpos(this.ypos + -this.base * this.speed);
-		}
-	}
-}
-
-class Ceruledge extends Pokemon{
-	public Ceruledge(String n, int lvl, Texture spr, float[] xy){
-		this.setName(n);
-		this.setType(new String[]{"Fire","Ghost"});
-		this.setLevel(lvl);
-		this.setSprite(spr);
-		this.setSpeed(8f);
-		this.setXpos(xy[0]);
-		this.setYpos(xy[1]);
-		System.out.println(String.format("A %s has spawned!", this.getName()));
-	}
-
-	public void ember(){
-		System.out.println(String.format("&s used Ember!", this.getName()));
-	}
-}
-
-class Mimikyu extends Pokemon{
-	public Mimikyu(String n, int lvl, Texture spr, float[] xy){
-		this.setName(n);
-		this.setType(new String[]{"Ghost","Fairy"});
-		this.setLevel(lvl);
-		this.setSprite(spr);
-		this.setSpeed(10f);
-		this.setXpos(xy[0]);
-		this.setYpos(xy[1]);
-		System.out.println(String.format("A %s has spawned!", this.getName()));
-	}
-
-	public void shadowsneak(){
-		System.out.println(String.format("&s used Shadow Sneak!", this.getName()));
-	}
-}
-
-class Wooper extends Pokemon{
-	public Wooper(String n, int lvl, Texture spr, float[] xy){
-		this.setName(n);
-		this.setType(new String[]{"Water","Ground"});
-		this.setLevel(lvl);
-		this.setSprite(spr);
-		this.setSpeed(5f);
-		this.setXpos(xy[0]);
-		this.setYpos(xy[1]);
-		System.out.println(String.format("A %s has spawned!", this.getName()));
-	}
-
-	public void watergun(){
-		System.out.println(String.format("&s used Water Gun!", this.getName()));
-	}
-}
-
 public class main extends ApplicationAdapter {
 	final int MOVEUP = Input.Keys.W;
 	final int MOVEDOWN = Input.Keys.S;
@@ -217,7 +81,8 @@ public class main extends ApplicationAdapter {
 			System.out.println(String.format("Now controlling: %s", pokeList.get(selector).getName()));
 		}
 
-		pokeList.get(selector).control(controls);
+		pokeList.get(selector).update(pokeList.get(selector),controls);
+
 		for (Pokemon p : pokeList) {
 			pokeBatch.draw(p.getSprite(), p.getXpos(), p.getYpos());
 		}
