@@ -93,6 +93,7 @@ public class main extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		pokeBatch.dispose();
+		bgBatch.dispose();
 		for (Texture sprite : imgs) {
 			sprite.dispose();
 		}
