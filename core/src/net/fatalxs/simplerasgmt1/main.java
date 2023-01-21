@@ -126,7 +126,7 @@ class Mimikyu extends Pokemon{
 		System.out.println(String.format("A %s has spawned!", this.getName()));
 	}
 
-	public void ember(){
+	public void shadowsneak(){
 		System.out.println(String.format("&s used Shadow Sneak!", this.getName()));
 	}
 }
@@ -143,7 +143,7 @@ class Wooper extends Pokemon{
 		System.out.println(String.format("A %s has spawned!", this.getName()));
 	}
 
-	public void ember(){
+	public void watergun(){
 		System.out.println(String.format("&s used Water Gun!", this.getName()));
 	}
 }
@@ -191,6 +191,7 @@ public class main extends ApplicationAdapter {
 		pokeList.add(ceruledge);
 		pokeList.add(mimikyu);
 		pokeList.add(wooper);
+		System.out.println(String.format("Now controlling: %s", pokeList.get(selector).getName()));
 	}
 
 	@Override
@@ -208,8 +209,16 @@ public class main extends ApplicationAdapter {
 
 		pokeBatch.begin();
 
+		if (Gdx.input.isKeyJustPressed(SWAP)){
+			selector++;
+			if (selector == pokeList.size()){
+				selector = 0;
+			}
+			System.out.println(String.format("Now controlling: %s", pokeList.get(selector).getName()));
+		}
+
+		pokeList.get(selector).control(controls);
 		for (Pokemon p : pokeList) {
-			p.control(controls);
 			pokeBatch.draw(p.getSprite(), p.getXpos(), p.getYpos());
 		}
 
