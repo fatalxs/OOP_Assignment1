@@ -98,9 +98,9 @@ class Pokemon{
 }
 
 class Ceruledge extends Pokemon{
-	public Ceruledge(String n, String[] t, int lvl, Texture spr, float[] xy){
+	public Ceruledge(String n, int lvl, Texture spr, float[] xy){
 		this.setName(n);
-		this.setType(t);
+		this.setType(new String[]{"Fire","Ghost"});
 		this.setLevel(lvl);
 		this.setSprite(spr);
 		this.setSpeed(8f);
@@ -115,9 +115,9 @@ class Ceruledge extends Pokemon{
 }
 
 class Mimikyu extends Pokemon{
-	public Mimikyu(String n, String[] t, int lvl, Texture spr, float[] xy){
+	public Mimikyu(String n, int lvl, Texture spr, float[] xy){
 		this.setName(n);
-		this.setType(t);
+		this.setType(new String[]{"Ghost","Fairy"});
 		this.setLevel(lvl);
 		this.setSprite(spr);
 		this.setSpeed(10f);
@@ -132,9 +132,9 @@ class Mimikyu extends Pokemon{
 }
 
 class Wooper extends Pokemon{
-	public Wooper(String n, String[] t, int lvl, Texture spr, float[] xy){
+	public Wooper(String n, int lvl, Texture spr, float[] xy){
 		this.setName(n);
-		this.setType(t);
+		this.setType(new String[]{"Water","Ground"});
 		this.setLevel(lvl);
 		this.setSprite(spr);
 		this.setSpeed(5f);
@@ -162,6 +162,7 @@ public class main extends ApplicationAdapter {
 	ArrayList<Texture> imgs = new ArrayList<Texture>();
 	String[] assets;
 	ArrayList<Pokemon> pokeList = new ArrayList<Pokemon>();
+	int selector = 0;
 
 	/*public void loadTextures(){
 		File folder = new File(".");
@@ -183,9 +184,9 @@ public class main extends ApplicationAdapter {
 
 		pokeBatch = new SpriteBatch();
 
-		Pokemon ceruledge = new Ceruledge("Ceruledge", new String[]{"Fire","Ghost"}, 60, new Texture("pokemon/Ceruledge.png"), new float[]{500f,500f});
-		Pokemon mimikyu = new Mimikyu("Mimikyu", new String[]{"Ghost","Fairy"}, 35, new Texture("pokemon/Mimikyu.png"), new float[]{900f,900f});
-		Pokemon wooper = new Wooper("Wooper", new String[]{"Water","Ground"}, 15, new Texture("pokemon/Wooper.png"), new float[]{200f,200f});
+		Pokemon ceruledge = new Ceruledge("Ceruledge", 60, new Texture("pokemon/Ceruledge.png"), new float[]{500f,500f});
+		Pokemon mimikyu = new Mimikyu("Mimikyu", 35, new Texture("pokemon/Mimikyu.png"), new float[]{900f,900f});
+		Pokemon wooper = new Wooper("Wooper", 15, new Texture("pokemon/Wooper.png"), new float[]{200f,200f});
 
 		pokeList.add(ceruledge);
 		pokeList.add(mimikyu);
@@ -206,6 +207,7 @@ public class main extends ApplicationAdapter {
 		bgBatch.end();
 
 		pokeBatch.begin();
+
 		for (Pokemon p : pokeList) {
 			p.control(controls);
 			pokeBatch.draw(p.getSprite(), p.getXpos(), p.getYpos());
