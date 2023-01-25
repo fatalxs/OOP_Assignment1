@@ -4,6 +4,9 @@ Lab 1 Requirements:
 - Create and instantiate 3 different entities
 - Allow for movement at different speeds, depending on entity
 
+Lab 2 Requirements:
+- Create a Brain superclass to control the movement of the entities
+
 Extra Stuff:
 - Neat background to match Pokémon theme
 
