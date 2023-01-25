@@ -1,9 +1,10 @@
 package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 class Wooper extends Collidable{
-    public Wooper(String n, int lvl, Texture spr, float[] xy){
+    public Wooper(String n, int lvl, Sprite spr, float[] xy){
         this.setName(n);
         this.setType(new String[]{"Water","Ground"});
         this.setLevel(lvl);

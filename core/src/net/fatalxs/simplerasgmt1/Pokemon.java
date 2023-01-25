@@ -9,7 +9,7 @@ abstract class Pokemon extends MoveAI{
     private String name;
     private String[] type;
     private int level;
-    private Texture sprite;
+    private Sprite sprite;
 
     private float xpos;
     private float ypos;
@@ -46,11 +46,11 @@ abstract class Pokemon extends MoveAI{
         this.level = level;
     }
 
-    public Texture getSprite() {
+    public Sprite getSprite() {
         return sprite;
     }
 
-    public void setSprite(Texture sprite) {
+    public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
 

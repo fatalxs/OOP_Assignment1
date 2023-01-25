@@ -22,25 +22,22 @@ public class main extends ApplicationAdapter {
 	final int[] controls = {MOVELEFT,MOVERIGHT,MOVEUP,MOVEDOWN};
 
 	SpriteBatch pokeBatch, bgBatch;
+	Texture tCeruledge, tMimikyu, tWooper;
 	Texture bg;
 	ArrayList<Texture> imgs = new ArrayList<Texture>();
 	String[] assets;
 	ArrayList<Pokemon> pokeList = new ArrayList<Pokemon>();
 	int selector = 0;
 
-	/*public void loadTextures(){
-		File folder = new File(".");
-		for (int i = 0; i<folder.listFiles().length; i++) {
-			imgs.add(new Texture(folder.listFiles()[i].getName()));
-		}
-		for (Texture s : imgs){
-			System.out.println(s.toString().substring(0, s.toString().indexOf(".")));
-		}
-	}*/
+	public void loadTextures(){
+		tCeruledge = new Texture("pokemon/Ceruledge.png");
+		tMimikyu = new Texture("pokemon/Mimikyu.png");
+		tWooper = new Texture("pokemon/Wooper.png");
+	}
 
 	@Override
 	public void create () {
-		//loadTextures();
+		loadTextures();
 		bgBatch = new SpriteBatch();
 
 		bg = new Texture("textures/grass2.png");
@@ -48,14 +45,21 @@ public class main extends ApplicationAdapter {
 
 		pokeBatch = new SpriteBatch();
 
-		Pokemon ceruledge = new Ceruledge("Ceruledge", 60, new Texture("pokemon/Ceruledge.png"), new float[]{500f,500f});
-		Pokemon mimikyu = new Mimikyu("Mimikyu", 35, new Texture("pokemon/Mimikyu.png"), new float[]{900f,900f});
-		Pokemon wooper = new Wooper("Wooper", 15, new Texture("pokemon/Wooper.png"), new float[]{200f,200f});
+		Pokemon ceruledge = new Ceruledge("Ceruledge", 60, new Sprite(tCeruledge), new float[]{500f,500f});
+		Pokemon mimikyu = new Mimikyu("Mimikyu", 35, new Sprite(tMimikyu), new float[]{900f,900f});
+		Pokemon wooper = new Wooper("Wooper", 15, new Sprite(tWooper), new float[]{200f,200f});
 
 		pokeList.add(ceruledge);
 		pokeList.add(mimikyu);
 		pokeList.add(wooper);
 		System.out.println(String.format("Now controlling: %s", pokeList.get(selector).getName()));
+
+		pokeBatch.begin();
+		for (Pokemon p : pokeList) {
+			p.getSprite().setPosition(p.getXpos(),p.getYpos());
+			pokeBatch.draw(p.getSprite(), p.getXpos(),p.getYpos());
+		}
+		pokeBatch.end();
 	}
 
 	@Override
@@ -84,7 +88,7 @@ public class main extends ApplicationAdapter {
 		pokeList.get(selector).update(pokeList.get(selector),controls);
 
 		for (Pokemon p : pokeList) {
-			pokeBatch.draw(p.getSprite(), p.getXpos(), p.getYpos());
+			pokeBatch.draw(p.getSprite(), p.getSprite().getX(),p.getSprite().getY());
 		}
 
 		pokeBatch.end();
