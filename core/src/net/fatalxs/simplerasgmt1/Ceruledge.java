@@ -2,7 +2,7 @@ package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.graphics.Texture;
 
-class Ceruledge extends Pokemon{
+class Ceruledge extends Collidable{
     public Ceruledge(String n, int lvl, Texture spr, float[] xy){
         this.setName(n);
         this.setType(new String[]{"Fire","Ghost"});

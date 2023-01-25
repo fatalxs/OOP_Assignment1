@@ -1,8 +1,11 @@
 package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
-class Pokemon extends MoveAI{
+abstract class Pokemon extends MoveAI{
     private String name;
     private String[] type;
     private int level;
@@ -74,4 +77,35 @@ class Pokemon extends MoveAI{
     public void setSpeed(float speed) {
         this.speed = speed;
     }
+}
+
+class Collidable extends Pokemon implements iCollidable{
+    MoveAI brain = new MoveAI();
+
+    @Override
+    public boolean collidesWith(iCollidable other){
+        return true;
+    }
+
+    @Override
+    public void handleCollision() {
+
+    }
+
+    @Override
+    public void reactToCollision() {
+
+    }
+}
+
+
+class NonCollidable extends Pokemon{
+    MoveAI brain = new MoveAI();
+
+}
+
+interface iCollidable{
+    public boolean collidesWith(iCollidable other);
+    public void handleCollision();
+    public void reactToCollision();
 }

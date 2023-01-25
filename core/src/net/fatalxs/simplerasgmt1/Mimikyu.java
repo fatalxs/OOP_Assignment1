@@ -2,7 +2,7 @@ package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.graphics.Texture;
 
-class Mimikyu extends Pokemon{
+class Mimikyu extends NonCollidable{
     public Mimikyu(String n, int lvl, Texture spr, float[] xy){
         this.setName(n);
         this.setType(new String[]{"Ghost","Fairy"});

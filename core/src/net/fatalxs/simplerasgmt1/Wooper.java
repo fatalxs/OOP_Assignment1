@@ -2,7 +2,7 @@ package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.graphics.Texture;
 
-class Wooper extends Pokemon{
+class Wooper extends Collidable{
     public Wooper(String n, int lvl, Texture spr, float[] xy){
         this.setName(n);
         this.setType(new String[]{"Water","Ground"});
