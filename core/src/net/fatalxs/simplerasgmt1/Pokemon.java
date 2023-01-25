@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 abstract class Pokemon extends MoveAI{
     private String name;
     private String[] type;
@@ -84,7 +86,9 @@ class Collidable extends Pokemon implements iCollidable{
 
     @Override
     public boolean collidesWith(iCollidable other){
-        return true;
+        getSprite().getBoundingRectangle();
+        Pokemon pother = (Pokemon) other;
+        return pother.getSprite().getBoundingRectangle().overlaps(getSprite().getBoundingRectangle());
     }
 
     @Override
@@ -93,8 +97,11 @@ class Collidable extends Pokemon implements iCollidable{
     }
 
     @Override
-    public void reactToCollision() {
-
+    public void reactToCollision(iCollidable cur, iCollidable oth){
+        Pokemon curP = (Pokemon) cur;
+        Pokemon othP = (Pokemon) oth;
+        System.out.println("collision detected!");
+        System.out.println(String.format("%s collided with %s!",curP.getName(),othP.getName()));
     }
 }
 
@@ -107,5 +114,5 @@ class NonCollidable extends Pokemon{
 interface iCollidable{
     public boolean collidesWith(iCollidable other);
     public void handleCollision();
-    public void reactToCollision();
+    public void reactToCollision(iCollidable cur, iCollidable oth);
 }

@@ -22,6 +22,7 @@ class MoveAI{
         }
 
         checkWindowBound(p);
+        p.checkCollision((iCollidable) p,(iCollidable) p);
     }
     public void checkWindowBound(Pokemon p){
         if (p.getSprite().getX() < 0){
@@ -37,5 +38,11 @@ class MoveAI{
             p.getSprite().setY(Gdx.graphics.getHeight()-p.getSprite().getHeight());
         }
 
+    }
+    public void checkCollision(iCollidable cur, iCollidable oth){
+        if (cur.collidesWith(oth)){
+            cur.reactToCollision(cur,oth);
+            cur.handleCollision();
+        }
     }
 }

@@ -3,13 +3,14 @@ package net.fatalxs.simplerasgmt1;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class main extends ApplicationAdapter {
@@ -75,8 +76,6 @@ public class main extends ApplicationAdapter {
 		bgBatch.draw(bg,0,0,sourceX, 0, sWidth, sHeight);
 		bgBatch.end();
 
-		pokeBatch.begin();
-
 		if (Gdx.input.isKeyJustPressed(SWAP)){
 			selector++;
 			if (selector == pokeList.size()){
@@ -87,11 +86,25 @@ public class main extends ApplicationAdapter {
 
 		pokeList.get(selector).update(pokeList.get(selector),controls);
 
+		// Hitbox Viewer
+		for (Pokemon p : pokeList) {
+			ShapeRenderer sr = new ShapeRenderer();
+			sr.begin(ShapeRenderer.ShapeType.Line);
+			Rectangle temp = p.getSprite().getBoundingRectangle();
+			sr.setColor(Color.RED);
+			sr.rect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight());
+			sr.end();
+		}
+
+		pokeBatch.begin();
+
+
 		for (Pokemon p : pokeList) {
 			pokeBatch.draw(p.getSprite(), p.getSprite().getX(),p.getSprite().getY());
 		}
 
 		pokeBatch.end();
+
 	}
 	
 	@Override
