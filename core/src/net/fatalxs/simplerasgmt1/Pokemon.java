@@ -9,8 +9,6 @@ abstract class Pokemon extends MoveAI{
     private int level;
     private Sprite sprite;
 
-    private float xpos;
-    private float ypos;
     private float speed;
     final private float base = 1f;
 
@@ -50,22 +48,6 @@ abstract class Pokemon extends MoveAI{
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
-    }
-
-    public float getXpos() {
-        return xpos;
-    }
-
-    public void setXpos(float xpos) {
-        this.xpos = xpos;
-    }
-
-    public float getYpos() {
-        return ypos;
-    }
-
-    public void setYpos(float ypos) {
-        this.ypos = ypos;
     }
 
     public float getSpeed() {
