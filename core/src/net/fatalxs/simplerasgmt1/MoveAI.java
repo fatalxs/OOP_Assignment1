@@ -3,46 +3,50 @@ package net.fatalxs.simplerasgmt1;
 import com.badlogic.gdx.Gdx;
 
 class MoveAI{
+    float[] nextMove = {0f,0f};
     public void update(Pokemon p, int[] controls){
         if (Gdx.input.isKeyPressed(controls[0])){ // move left
-//            p.setXpos(p.getXpos() + -p.getBase() * p.getSpeed());
-            p.getSprite().translateX(-p.getBase() * p.getSpeed());
+            nextMove[0] += -p.getBase() * p.getSpeed();
         }
         if (Gdx.input.isKeyPressed(controls[1])){ // move right
-//            p.setXpos(p.getXpos() + p.getBase() * p.getSpeed());
-            p.getSprite().translateX(p.getBase() * p.getSpeed());
+            nextMove[0] += p.getBase() * p.getSpeed();
         }
         if (Gdx.input.isKeyPressed(controls[2])){ // move up
-//            p.setYpos(p.getYpos() + p.getBase() * p.getSpeed());
-            p.getSprite().translateY(p.getBase() * p.getSpeed());
+            nextMove[1] += p.getBase() * p.getSpeed();
         }
         if (Gdx.input.isKeyPressed(controls[3])){ // move down
-//            p.setYpos(p.getYpos() + -p.getBase() * p.getSpeed());
-            p.getSprite().translateY(-p.getBase() * p.getSpeed());
+            nextMove[1] += -p.getBase() * p.getSpeed();
         }
 
-        checkWindowBound(p);
-        p.checkCollision((iCollidable) p,(iCollidable) p);
+        if (nextMove[0] != 0 || nextMove[1] != 0){
+            nextMove = checkWindowBound(p, nextMove);
+            p.getSprite().translate(nextMove[0],nextMove[1]);
+            nextMove[0] = 0;
+            nextMove[1] = 0;
+        }
+
     }
-    public void checkWindowBound(Pokemon p){
-        if (p.getSprite().getX() < 0){
+    public float[] checkWindowBound(Pokemon p, float[] nextMove){
+        float[] calcMove = nextMove.clone();
+        if (p.getSprite().getX()+nextMove[0] < 0){
+            calcMove[0] = 0;
             p.getSprite().setX(0);
         }
-        if (p.getSprite().getX() > Gdx.graphics.getWidth()-p.getSprite().getWidth()){
+        if (p.getSprite().getX()+nextMove[0] > Gdx.graphics.getWidth()-p.getSprite().getWidth()){
+            calcMove[0] = 0;
             p.getSprite().setX(Gdx.graphics.getWidth()-p.getSprite().getWidth());
         }
-        if (p.getSprite().getY() < 0){
+        if (p.getSprite().getY()+nextMove[1] < 0){
+            calcMove[1] = 0;
             p.getSprite().setY(0);
         }
-        if (p.getSprite().getY() > Gdx.graphics.getHeight()-p.getSprite().getHeight()){
+        if (p.getSprite().getY()+nextMove[1] > Gdx.graphics.getHeight()-p.getSprite().getHeight()){
+            calcMove[1] = 0;
             p.getSprite().setY(Gdx.graphics.getHeight()-p.getSprite().getHeight());
         }
-
+        return calcMove;
     }
     public void checkCollision(iCollidable cur, iCollidable oth){
-        if (cur.collidesWith(oth)){
-            cur.reactToCollision(cur,oth);
-            cur.handleCollision();
-        }
+
     }
 }

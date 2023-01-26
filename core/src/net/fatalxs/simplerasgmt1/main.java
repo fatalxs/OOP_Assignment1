@@ -10,6 +10,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
 
@@ -22,12 +26,13 @@ public class main extends ApplicationAdapter {
 	final int RSPECIAL = Input.Keys.SPACE;
 	final int[] controls = {MOVELEFT,MOVERIGHT,MOVEUP,MOVEDOWN};
 
+	OrthographicCamera cam;
+	Viewport viewport;
 	SpriteBatch pokeBatch, bgBatch;
 	Texture tCeruledge, tMimikyu, tWooper;
 	Texture bg;
-	ArrayList<Texture> imgs = new ArrayList<Texture>();
-	String[] assets;
 	ArrayList<Pokemon> pokeList = new ArrayList<Pokemon>();
+	ShapeRenderer sr;
 	int selector = 0;
 
 	public void loadTextures(){
@@ -67,6 +72,26 @@ public class main extends ApplicationAdapter {
 	public void render () {
 		int sWidth = Gdx.graphics.getWidth();
 		int sHeight = Gdx.graphics.getHeight();
+
+		cam = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		cam.position.set(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2, 0);
+
+		viewport = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), cam);
+		viewport.update(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+		bgBatch.setProjectionMatrix(cam.projection);
+		bgBatch.setTransformMatrix(cam.view);
+		pokeBatch.setProjectionMatrix(cam.projection);
+		pokeBatch.setTransformMatrix(cam.view);
+
+		cam.update();
+		viewport.update(sWidth,sHeight);
+
+		if (sWidth != Gdx.graphics.getWidth() || sHeight != Gdx.graphics.getHeight()){
+			System.out.println(String.format("Resolution Updated!\nOld Res:\t%s x %s\nNew Res:\t %s x %s",sWidth
+			,sHeight, Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));
+		}
+
 		Gdx.gl.glViewport(0, 0,sWidth, sHeight);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
@@ -88,7 +113,8 @@ public class main extends ApplicationAdapter {
 
 		// Hitbox Viewer
 		for (Pokemon p : pokeList) {
-			ShapeRenderer sr = new ShapeRenderer();
+			sr = new ShapeRenderer();
+			sr.setProjectionMatrix(cam.combined);
 			sr.begin(ShapeRenderer.ShapeType.Line);
 			Rectangle temp = p.getSprite().getBoundingRectangle();
 			sr.setColor(Color.RED);
@@ -111,8 +137,5 @@ public class main extends ApplicationAdapter {
 	public void dispose () {
 		pokeBatch.dispose();
 		bgBatch.dispose();
-		for (Texture sprite : imgs) {
-			sprite.dispose();
-		}
 	}
 }
