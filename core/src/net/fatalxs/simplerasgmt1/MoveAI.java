@@ -10,48 +10,29 @@ import java.util.ArrayList;
 class MoveAI{
     float[] nextMove = {0f,0f};
     public void update(ArrayList<Pokemon> pList, int sel, int[] controls){
-        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-            if (Gdx.input.isKeyPressed(controls[0])){ // move left
-                nextMove[0] += -pList.get(sel).getBase();
-            }
-            if (Gdx.input.isKeyPressed(controls[1])){ // move right
-                nextMove[0] += pList.get(sel).getBase();
-            }
-            if (Gdx.input.isKeyPressed(controls[2])){ // move up
-                nextMove[1] += pList.get(sel).getBase();
-            }
-            if (Gdx.input.isKeyPressed(controls[3])){ // move down
-                nextMove[1] += -pList.get(sel).getBase();
-            }
 
-            if (nextMove[0] != 0 || nextMove[1] != 0){
-                nextMove = checkWindowBound(pList.get(sel), nextMove);
-                nextMove = checkCollision(pList, sel, nextMove);
-                pList.get(sel).getSprite().translate(nextMove[0],nextMove[1]);
-                nextMove[0] = 0;
-                nextMove[1] = 0;
-            }
-        } else {
-            if (Gdx.input.isKeyPressed(controls[0])) { // move left
-                nextMove[0] += -pList.get(sel).getBase() * pList.get(sel).getSpeed();
-            }
-            if (Gdx.input.isKeyPressed(controls[1])) { // move right
-                nextMove[0] += pList.get(sel).getBase() * pList.get(sel).getSpeed();
-            }
-            if (Gdx.input.isKeyPressed(controls[2])) { // move up
-                nextMove[1] += pList.get(sel).getBase() * pList.get(sel).getSpeed();
-            }
-            if (Gdx.input.isKeyPressed(controls[3])) { // move down
-                nextMove[1] += -pList.get(sel).getBase() * pList.get(sel).getSpeed();
-            }
+        if (Gdx.input.isKeyPressed(controls[0])) { // move left
+            nextMove[0] += -pList.get(sel).getBase() * pList.get(sel).getSpeed();
+        }
+        if (Gdx.input.isKeyPressed(controls[1])) { // move right
+            nextMove[0] += pList.get(sel).getBase() * pList.get(sel).getSpeed();
+        }
+        if (Gdx.input.isKeyPressed(controls[2])) { // move up
+            nextMove[1] += pList.get(sel).getBase() * pList.get(sel).getSpeed();
+        }
+        if (Gdx.input.isKeyPressed(controls[3])) { // move down
+            nextMove[1] += -pList.get(sel).getBase() * pList.get(sel).getSpeed();
+        }
+        if (Gdx.input.isKeyJustPressed(controls[4])){
+            pList.get(sel).special();
+        }
 
-            if (nextMove[0] != 0 || nextMove[1] != 0) {
-                nextMove = checkWindowBound(pList.get(sel), nextMove);
-                nextMove = checkCollision(pList, sel, nextMove);
-                pList.get(sel).getSprite().translate(nextMove[0], nextMove[1]);
-                nextMove[0] = 0;
-                nextMove[1] = 0;
-            }
+        if (nextMove[0] != 0 || nextMove[1] != 0) {
+            nextMove = checkWindowBound(pList.get(sel), nextMove);
+            nextMove = checkCollision(pList, sel, nextMove);
+            pList.get(sel).getSprite().translate(nextMove[0], nextMove[1]);
+            nextMove[0] = 0;
+            nextMove[1] = 0;
         }
     }
     public float[] checkWindowBound(Pokemon p, float[] nextMove){

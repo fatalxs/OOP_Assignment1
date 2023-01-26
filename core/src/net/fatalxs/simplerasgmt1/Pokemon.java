@@ -15,6 +15,8 @@ abstract class Pokemon extends MoveAI{
 
     public Pokemon(){}
 
+    public void special(){}
+
     public float getBase() {
         return base;
     }

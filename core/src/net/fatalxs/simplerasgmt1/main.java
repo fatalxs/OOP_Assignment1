@@ -23,7 +23,7 @@ public class main extends ApplicationAdapter {
 	final int MOVERIGHT = Input.Keys.D;
 	final int SWAP = Input.Keys.G;
 	final int RSPECIAL = Input.Keys.SPACE;
-	final int[] controls = {MOVELEFT,MOVERIGHT,MOVEUP,MOVEDOWN};
+	final int[] controls = {MOVELEFT,MOVERIGHT,MOVEUP,MOVEDOWN,RSPECIAL};
 
 	OrthographicCamera cam;
 	Viewport viewport;

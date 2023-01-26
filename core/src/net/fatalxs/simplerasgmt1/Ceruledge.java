@@ -1,6 +1,5 @@
 package net.fatalxs.simplerasgmt1;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 class Ceruledge extends Collidable{
@@ -14,7 +13,7 @@ class Ceruledge extends Collidable{
         System.out.println(String.format("A %s has spawned!", this.getName()));
     }
 
-    public void ember(){
-        System.out.println(String.format("&s used Ember!", this.getName()));
+    public void special(){
+        System.out.println(String.format("%s used Ember!", this.getName()));
     }
 }

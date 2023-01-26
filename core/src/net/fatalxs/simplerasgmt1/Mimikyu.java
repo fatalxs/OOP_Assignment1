@@ -1,6 +1,5 @@
 package net.fatalxs.simplerasgmt1;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 class Mimikyu extends NonCollidable{
@@ -14,7 +13,7 @@ class Mimikyu extends NonCollidable{
         System.out.println(String.format("A %s has spawned!", this.getName()));
     }
 
-    public void shadowsneak(){
-        System.out.println(String.format("&s used Shadow Sneak!", this.getName()));
+    public void special(){
+        System.out.println(String.format("%s used Shadow Sneak!", this.getName()));
     }
 }

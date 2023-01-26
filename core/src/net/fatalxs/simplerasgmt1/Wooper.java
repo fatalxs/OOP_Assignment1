@@ -1,6 +1,5 @@
 package net.fatalxs.simplerasgmt1;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 class Wooper extends Collidable{
@@ -14,7 +13,7 @@ class Wooper extends Collidable{
         System.out.println(String.format("A %s has spawned!", this.getName()));
     }
 
-    public void watergun(){
-        System.out.println(String.format("&s used Water Gun!", this.getName()));
+    public void special(){
+        System.out.println(String.format("%s used Water Gun!", this.getName()));
     }
 }
