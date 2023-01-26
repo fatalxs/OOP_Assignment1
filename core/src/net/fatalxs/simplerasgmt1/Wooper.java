@@ -9,7 +9,7 @@ class Wooper extends Collidable{
         this.setType(new String[]{"Water","Ground"});
         this.setLevel(lvl);
         this.setSprite(spr);
-        this.setSpeed(5f);
+        this.setSpeed(1f);
         this.setXpos(xy[0]);
         this.setYpos(xy[1]);
         System.out.println(String.format("A %s has spawned!", this.getName()));
