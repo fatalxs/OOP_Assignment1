@@ -9,7 +9,7 @@ class Ceruledge extends Collidable{
         this.setType(new String[]{"Fire","Ghost"});
         this.setLevel(lvl);
         this.setSprite(spr);
-        this.setSpeed(8f);
+        this.setSpeed(10f);
         this.setXpos(xy[0]);
         this.setYpos(xy[1]);
         System.out.println(String.format("A %s has spawned!", this.getName()));

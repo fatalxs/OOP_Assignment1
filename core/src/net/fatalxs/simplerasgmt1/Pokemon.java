@@ -1,6 +1,7 @@
 package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 
 abstract class Pokemon extends MoveAI{
     private String name;
@@ -11,7 +12,7 @@ abstract class Pokemon extends MoveAI{
     private float xpos;
     private float ypos;
     private float speed;
-    final private float base = 5f;
+    final private float base = 1f;
 
     public Pokemon(){}
 
@@ -80,19 +81,24 @@ class Collidable extends Pokemon implements iCollidable{
     MoveAI brain = new MoveAI();
 
     @Override
-    public boolean collidesWith(iCollidable other){
-        return true;
+    public boolean collidesWith(Pokemon other, float[] cM){
+        Rectangle curHB = this.getSprite().getBoundingRectangle();
+        Rectangle testHB = other.getSprite().getBoundingRectangle();
+        if (testHB.overlaps(curHB.setPosition(curHB.getX()+cM[0],curHB.getY()+cM[1]))){
+            return true;
+        }
+        else return false;
     }
 
     @Override
-    public void handleCollision() {
-
+    public float[] handleCollision() {
+        return new float[]{0,0};
     }
 
     @Override
     public void reactToCollision(Pokemon cur, Pokemon oth){
-        System.out.println("collision detected!");
-        System.out.println(String.format("%s collided with %s!",cur.getName(),oth.getName()));
+        System.out.println("Collision Detected!");
+        System.out.println(String.format("%s collided with %s!\n\n", cur.getName(), oth.getName()));
     }
 }
 
@@ -103,7 +109,7 @@ class NonCollidable extends Pokemon{
 }
 
 interface iCollidable{
-    boolean collidesWith(iCollidable other);
-    void handleCollision();
+    boolean collidesWith(Pokemon other, float[] cM);
+    float[] handleCollision();
     void reactToCollision(Pokemon cur, Pokemon oth);
 }

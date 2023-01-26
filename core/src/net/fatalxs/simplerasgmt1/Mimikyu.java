@@ -9,7 +9,7 @@ class Mimikyu extends NonCollidable{
         this.setType(new String[]{"Ghost","Fairy"});
         this.setLevel(lvl);
         this.setSprite(spr);
-        this.setSpeed(10f);
+        this.setSpeed(15f);
         this.setXpos(xy[0]);
         this.setYpos(xy[1]);
         System.out.println(String.format("A %s has spawned!", this.getName()));

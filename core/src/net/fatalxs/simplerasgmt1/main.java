@@ -109,7 +109,7 @@ public class main extends ApplicationAdapter {
 			System.out.println(String.format("Now controlling: %s", pokeList.get(selector).getName()));
 		}
 
-		pokeList.get(selector).update(pokeList.get(selector),controls);
+		pokeList.get(selector).update(pokeList, selector, controls);
 
 		// Hitbox Viewer
 		for (Pokemon p : pokeList) {

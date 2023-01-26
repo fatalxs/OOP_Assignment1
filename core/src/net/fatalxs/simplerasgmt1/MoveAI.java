@@ -1,30 +1,58 @@
 package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import jdk.internal.org.jline.utils.OSUtils;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 class MoveAI{
     float[] nextMove = {0f,0f};
-    public void update(Pokemon p, int[] controls){
-        if (Gdx.input.isKeyPressed(controls[0])){ // move left
-            nextMove[0] += -p.getBase() * p.getSpeed();
-        }
-        if (Gdx.input.isKeyPressed(controls[1])){ // move right
-            nextMove[0] += p.getBase() * p.getSpeed();
-        }
-        if (Gdx.input.isKeyPressed(controls[2])){ // move up
-            nextMove[1] += p.getBase() * p.getSpeed();
-        }
-        if (Gdx.input.isKeyPressed(controls[3])){ // move down
-            nextMove[1] += -p.getBase() * p.getSpeed();
-        }
+    public void update(ArrayList<Pokemon> pList, int sel, int[] controls){
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+            if (Gdx.input.isKeyPressed(controls[0])){ // move left
+                nextMove[0] += -pList.get(sel).getBase();
+            }
+            if (Gdx.input.isKeyPressed(controls[1])){ // move right
+                nextMove[0] += pList.get(sel).getBase();
+            }
+            if (Gdx.input.isKeyPressed(controls[2])){ // move up
+                nextMove[1] += pList.get(sel).getBase();
+            }
+            if (Gdx.input.isKeyPressed(controls[3])){ // move down
+                nextMove[1] += -pList.get(sel).getBase();
+            }
 
-        if (nextMove[0] != 0 || nextMove[1] != 0){
-            nextMove = checkWindowBound(p, nextMove);
-            p.getSprite().translate(nextMove[0],nextMove[1]);
-            nextMove[0] = 0;
-            nextMove[1] = 0;
-        }
+            if (nextMove[0] != 0 || nextMove[1] != 0){
+                nextMove = checkWindowBound(pList.get(sel), nextMove);
+                nextMove = checkCollision(pList, sel, nextMove);
+                pList.get(sel).getSprite().translate(nextMove[0],nextMove[1]);
+                nextMove[0] = 0;
+                nextMove[1] = 0;
+            }
+        } else {
+            if (Gdx.input.isKeyPressed(controls[0])) { // move left
+                nextMove[0] += -pList.get(sel).getBase() * pList.get(sel).getSpeed();
+            }
+            if (Gdx.input.isKeyPressed(controls[1])) { // move right
+                nextMove[0] += pList.get(sel).getBase() * pList.get(sel).getSpeed();
+            }
+            if (Gdx.input.isKeyPressed(controls[2])) { // move up
+                nextMove[1] += pList.get(sel).getBase() * pList.get(sel).getSpeed();
+            }
+            if (Gdx.input.isKeyPressed(controls[3])) { // move down
+                nextMove[1] += -pList.get(sel).getBase() * pList.get(sel).getSpeed();
+            }
 
+            if (nextMove[0] != 0 || nextMove[1] != 0) {
+                nextMove = checkWindowBound(pList.get(sel), nextMove);
+                nextMove = checkCollision(pList, sel, nextMove);
+                pList.get(sel).getSprite().translate(nextMove[0], nextMove[1]);
+                nextMove[0] = 0;
+                nextMove[1] = 0;
+            }
+        }
     }
     public float[] checkWindowBound(Pokemon p, float[] nextMove){
         float[] calcMove = nextMove.clone();
@@ -46,7 +74,20 @@ class MoveAI{
         }
         return calcMove;
     }
-    public void checkCollision(iCollidable cur, iCollidable oth){
+    public float[] checkCollision(ArrayList<Pokemon> pList, int sel, float[] cM){
+        Pokemon cur = pList.get(sel);
 
+        if (cur instanceof iCollidable){
+            for (Pokemon oth : pList){
+                if (oth != cur & oth instanceof iCollidable){
+                    if (((iCollidable) cur).collidesWith(oth,cM)){
+                        ((iCollidable) cur).reactToCollision(cur,oth);
+                        return ((iCollidable) cur).handleCollision();
+                    }
+
+                }
+            }
+        }
+        return cM;
     }
 }
