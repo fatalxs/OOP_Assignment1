@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
 
@@ -62,8 +61,8 @@ public class main extends ApplicationAdapter {
 
 		pokeBatch.begin();
 		for (Pokemon p : pokeList) {
-			p.getSprite().setPosition(p.getXpos(),p.getYpos());
-			pokeBatch.draw(p.getSprite(), p.getXpos(),p.getYpos());
+			p.getSprite().setPosition(p.getDefPos()[0],p.getDefPos()[1]);
+			pokeBatch.draw(p.getSprite(), p.getDefPos()[0],p.getDefPos()[1]);
 		}
 		pokeBatch.end();
 	}
@@ -112,7 +111,7 @@ public class main extends ApplicationAdapter {
 		pokeList.get(selector).update(pokeList, selector, controls);
 
 		// Hitbox Viewer
-		for (Pokemon p : pokeList) {
+		/*for (Pokemon p : pokeList) {
 			sr = new ShapeRenderer();
 			sr.setProjectionMatrix(cam.combined);
 			sr.begin(ShapeRenderer.ShapeType.Line);
@@ -120,7 +119,7 @@ public class main extends ApplicationAdapter {
 			sr.setColor(Color.RED);
 			sr.rect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight());
 			sr.end();
-		}
+		}*/
 
 		pokeBatch.begin();
 
