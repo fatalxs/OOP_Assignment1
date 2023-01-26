@@ -52,7 +52,7 @@ public class main extends ApplicationAdapter {
 
 		bgBatch = new SpriteBatch();
 
-		bg = new Texture("textures/grass2.png");
+		bg = new Texture("textures/grass.png");
 		bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.MirroredRepeat);
 
 		pokeBatch = new SpriteBatch();
