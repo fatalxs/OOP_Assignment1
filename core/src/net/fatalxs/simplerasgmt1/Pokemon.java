@@ -71,8 +71,6 @@ abstract class Pokemon extends MoveAI{
 }
 
 class Collidable extends Pokemon implements iCollidable{
-    MoveAI brain = new MoveAI();
-
     @Override
     public boolean collidesWith(Pokemon other, float[] cM){
         Rectangle curHB = this.getSprite().getBoundingRectangle();
@@ -96,10 +94,7 @@ class Collidable extends Pokemon implements iCollidable{
 }
 
 
-class NonCollidable extends Pokemon{
-    MoveAI brain = new MoveAI();
-
-}
+class NonCollidable extends Pokemon{}
 
 interface iCollidable{
     boolean collidesWith(Pokemon other, float[] cM);

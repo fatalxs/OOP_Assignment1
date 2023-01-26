@@ -4,12 +4,13 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -32,6 +33,9 @@ public class main extends ApplicationAdapter {
 	Texture bg;
 	ArrayList<Pokemon> pokeList = new ArrayList<Pokemon>();
 	ShapeRenderer sr;
+	String pokeHead;
+
+	BitmapFont font;
 	int selector = 0;
 
 	public void loadTextures(){
@@ -43,6 +47,9 @@ public class main extends ApplicationAdapter {
 	@Override
 	public void create () {
 		loadTextures();
+		font = new BitmapFont();
+		font.getData().setScale(1.2f);
+
 		bgBatch = new SpriteBatch();
 
 		bg = new Texture("textures/grass2.png");
@@ -86,11 +93,6 @@ public class main extends ApplicationAdapter {
 		cam.update();
 		viewport.update(sWidth,sHeight);
 
-		if (sWidth != Gdx.graphics.getWidth() || sHeight != Gdx.graphics.getHeight()){
-			System.out.println(String.format("Resolution Updated!\nOld Res:\t%s x %s\nNew Res:\t %s x %s",sWidth
-			,sHeight, Gdx.graphics.getWidth(),Gdx.graphics.getHeight()));
-		}
-
 		Gdx.gl.glViewport(0, 0,sWidth, sHeight);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
@@ -111,7 +113,7 @@ public class main extends ApplicationAdapter {
 		pokeList.get(selector).update(pokeList, selector, controls);
 
 		// Hitbox Viewer
-		/*for (Pokemon p : pokeList) {
+		for (Pokemon p : pokeList) {
 			sr = new ShapeRenderer();
 			sr.setProjectionMatrix(cam.combined);
 			sr.begin(ShapeRenderer.ShapeType.Line);
@@ -119,12 +121,15 @@ public class main extends ApplicationAdapter {
 			sr.setColor(Color.RED);
 			sr.rect(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight());
 			sr.end();
-		}*/
+		}
 
 		pokeBatch.begin();
 
 
 		for (Pokemon p : pokeList) {
+			pokeHead = String.format("%s (Lv. %d)",p.getName(),p.getLevel());
+			font.setColor(Color.BLACK);
+			font.draw(pokeBatch, pokeHead, p.getSprite().getX(),p.getSprite().getY()+p.getSprite().getHeight()+20f);
 			pokeBatch.draw(p.getSprite(), p.getSprite().getX(),p.getSprite().getY());
 		}
 
