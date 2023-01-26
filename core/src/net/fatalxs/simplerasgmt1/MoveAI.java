@@ -1,10 +1,6 @@
 package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import jdk.internal.org.jline.utils.OSUtils;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class MoveAI{
