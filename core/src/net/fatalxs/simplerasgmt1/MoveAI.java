@@ -9,9 +9,11 @@ class MoveAI{
 
         if (Gdx.input.isKeyPressed(controls[0])) { // move left
             nextMove[0] += -pList.get(sel).getBase() * pList.get(sel).getSpeed();
+            pList.get(sel).getSprite().setFlip(false, false);
         }
         if (Gdx.input.isKeyPressed(controls[1])) { // move right
             nextMove[0] += pList.get(sel).getBase() * pList.get(sel).getSpeed();
+            pList.get(sel).getSprite().setFlip(true, false);
         }
         if (Gdx.input.isKeyPressed(controls[2])) { // move up
             nextMove[1] += pList.get(sel).getBase() * pList.get(sel).getSpeed();
