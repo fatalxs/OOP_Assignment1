@@ -64,6 +64,11 @@ public class main extends ApplicationAdapter {
 		pokeList.add(ceruledge);
 		pokeList.add(mimikyu);
 		pokeList.add(wooper);
+
+		Collidable<Ceruledge> ceruledgeClone = (Collidable<Ceruledge>) new Ceruledge("CeruledgeClone", 75, new Sprite(tCeruledge), new float[]{900f,500f});
+
+		pokeList.add(ceruledgeClone);
+
 		System.out.println(String.format("Now controlling: %s", pokeList.get(selector).getName()));
 
 		pokeBatch.begin();

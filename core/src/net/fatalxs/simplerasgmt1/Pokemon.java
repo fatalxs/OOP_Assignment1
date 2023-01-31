@@ -3,7 +3,7 @@ package net.fatalxs.simplerasgmt1;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
-abstract class Pokemon extends MoveAI{
+abstract class Pokemon<T> extends MoveAI implements Cloneable{
     private String name;
     private String[] type;
     private int level;

@@ -2,7 +2,7 @@ package net.fatalxs.simplerasgmt1;
 
 import com.badlogic.gdx.math.Rectangle;
 
-class Collidable extends Pokemon implements iCollidable{
+class Collidable<T> extends Pokemon<T> implements iCollidable<T>{
     @Override
     public boolean collidesWith(Pokemon other, float[] cM){
         Rectangle curHB = this.getSprite().getBoundingRectangle();
