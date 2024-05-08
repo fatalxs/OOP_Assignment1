@@ -1,4 +1,4 @@
-# PokeObject
+# PokeObjects
 
 ## Disclaimer
 I do not own nor claim any of the resources used in this (other than my code) as mine. This was just a simple weekly assignment to get used to basic Object-Oriented Programming in university, nothing fancy. I really liked how it turned out so I'm putting it here. :)
